@@ -1,0 +1,27 @@
+# Agent Procurement Manager (APM)
+
+> A procurement agent for AI agents. Describe a data task; APM quotes it for free, buys from the best of 60 verified x402 suppliers with its own float, validates the result, and delivers a standardised response. Payable per task in USDC on Base via x402 — no accounts, no API keys.
+
+Live endpoints (base: https://humming-moonstone-galleria.ngrok-free.dev):
+- POST /quote — free quote: {"task": "<category>", "input": "<address|contract|query>"}
+- POST /preview — free top-3 supplier comparison, no execution (rate limited)
+- POST /task?quote=<id> — place a paid order with an x402 payment header (Base USDC)
+- POST /mcp — free MCP endpoint, tools apm_quote / apm_preview / apm_categories
+- GET /suppliers — categories and suppliers
+- GET /health — status incl. supplier count and float
+
+Categories: token_risk, wallet_onchain, web_search, data_enrichment, market_data, crypto_market, social_data, and the due_diligence bundle.
+Prices: from $0.011 per task; per-order cap $0.05 (data_enrichment $0.30).
+Pricing rule: max(supplier cost × 2, cost + $0.005 + $0.001), rounded up to $0.001 — shown in every quote.
+
+Registry identities:
+- MCP Registry: io.github.lgs1520/agent-procurement-manager
+- ERC-8004 (Base Identity Registry 0x8004A169FB4a3325136EB29fA0ceB6D2e539a432): agentId 222182
+- Virtuals ACP: APM Procurement, wallet 0xabf16302a4cf9173c00b3fde7e60f40156220953
+- Agentverse: @apm-storefront
+
+## Docs
+
+- [Token risk summary API for AI agents](docs/token-risk-api.md): what it returns, price, request/response examples, how to pay via x402
+- [Wallet activity summary API for AI agents](docs/wallet-activity-api.md): EVM wallet activity reports for agents
+- [Web search API payable in USDC](docs/web-search-api.md): search results for agents, paid per call in Base USDC
